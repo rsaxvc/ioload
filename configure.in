@@ -1,7 +1,7 @@
 dnl Helder Correia <helder.correia@netcabo.pt>
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT([nload], [0.7.0], [feedback@roland-riegel.de])
+AC_INIT([nload], [0.7.1], [feedback@roland-riegel.de])
 
 AC_CANONICAL_HOST
 
@@ -94,6 +94,9 @@ if test "$GCC" = "yes" ; then
      CFLAGS="$CFLAGS -Wall"
      CXXFLAGS="$CXXFLAGS -Wall"
 fi
+
+dnl Forward sysconfdir to the preprocessor
+CPPFLAGS="$CPPFLAGS -DSYSCONFDIR='\"\$(sysconfdir)\"'"
 
 dnl Adds extra arguments to configure script.
 AC_ARG_ENABLE(debug,
