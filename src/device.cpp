@@ -2,7 +2,7 @@
                                   dev.cpp
                              -------------------
     begin                : Wed Aug 1 2001
-    copyright            : (C) 2001 - 2011 by Roland Riegel
+    copyright            : (C) 2001 - 2012 by Roland Riegel
     email                : feedback@roland-riegel.de
  ***************************************************************************/
 
@@ -23,7 +23,6 @@
 #include "window.h"
 
 #include <iomanip>
-#include <limits.h>
 
 using namespace std;
 
@@ -108,7 +107,7 @@ void Device::print(Window& window)
         
         m_deviceGraphIn.setNumOfBars(window.getWidth() * 2 / 3);
         m_deviceGraphIn.setHeightOfBars((window.getHeight() - window.getY() - 1) / 2);
-        m_deviceGraphIn.setMaxDeflection((long long) SettingStore::get("BarMaxIn") * 1024 / 8);
+        m_deviceGraphIn.setMaxDeflection((unsigned long long) SettingStore::get("BarMaxIn") * 1024 / 8);
         m_deviceGraphIn.print(window, 0, window.getY());
         
         printStatisticsIn(window, window.getWidth() * 2 / 3 + 2, window.getY() - 5);
@@ -118,7 +117,7 @@ void Device::print(Window& window)
         
         m_deviceGraphOut.setNumOfBars(window.getWidth() * 2 / 3);
         m_deviceGraphOut.setHeightOfBars(window.getHeight() - window.getY());
-        m_deviceGraphOut.setMaxDeflection((long long) SettingStore::get("BarMaxOut") * 1024 / 8);
+        m_deviceGraphOut.setMaxDeflection((unsigned long long) SettingStore::get("BarMaxOut") * 1024 / 8);
         m_deviceGraphOut.print(window, 0, window.getY());
         
         printStatisticsOut(window, window.getWidth() * 2 / 3 + 2, window.getY() - 4);
@@ -152,20 +151,24 @@ void Device::fixOverflows(DataFrame& dataFrame, const DataFrame& dataFrameOld)
     dataFrame.setTotalDropsOut(fixOverflow(dataFrame.getTotalDropsOut(), dataFrameOld.getTotalDropsOut()));
 }
 
-long long Device::fixOverflow(long long value, long long valueOld)
+unsigned long long Device::fixOverflow(unsigned long long value, unsigned long long valueOld)
 {
-    if(value > UINT_MAX)
+    if(value > 0xffffffffULL)
         return value;
 
-    if(value < (valueOld % UINT_MAX))
+    if(value < (valueOld & 0xffffffffULL))
+    {
         // overflow happend (again)
-        return ((valueOld / UINT_MAX) + 1) * UINT_MAX + value;
+        valueOld += 0x100000000ULL;
+    }
 
     // no overflow happend, keep previous ones
-    return (valueOld / UINT_MAX) * UINT_MAX + value;
+    valueOld &= 0xffffffff00000000ULL;
+    value |= valueOld;
+    return value;
 }
 
-void Device::printTrafficValue(Window& window, int x, int y, const std::string& description, long long value)
+void Device::printTrafficValue(Window& window, int x, int y, const std::string& description, unsigned long long value)
 {
     Statistics::dataUnit trafficFormat = (Statistics::dataUnit) ((int) SettingStore::get("TrafficFormat"));
 
@@ -175,7 +178,7 @@ void Device::printTrafficValue(Window& window, int x, int y, const std::string& 
     window.print(x, y) << fixed << setprecision(2) << description << ": " << ((float) value / unitFactor) << " " << unitString << "/s" << endl;
 }
 
-void Device::printDataValue(Window& window, int x, int y, const std::string& description, long long value)
+void Device::printDataValue(Window& window, int x, int y, const std::string& description, unsigned long long value)
 {
     Statistics::dataUnit dataFormat = (Statistics::dataUnit) ((int) SettingStore::get("DataFormat"));
 
