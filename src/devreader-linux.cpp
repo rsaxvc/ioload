@@ -23,11 +23,6 @@ bool DevReaderLinux::isAvailable()
 
 list<string> DevReaderLinux::findAllDevices()
 {
-    if(DevReaderLinuxSys::isAvailable())
-        return DevReaderLinuxSys::findAllDevices();
-    else if(DevReaderLinuxProc::isAvailable())
-        return DevReaderLinuxProc::findAllDevices();
-    else
-        return list<string>();
+    return DevReaderLinuxProc::findAllDevices();
 }
 

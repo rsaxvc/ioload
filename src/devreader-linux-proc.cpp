@@ -1,3 +1,4 @@
+#include <iostream>
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -32,40 +33,72 @@ DevReaderLinuxProc::~DevReaderLinuxProc()
 bool DevReaderLinuxProc::isAvailable()
 {
     struct stat procStat;
-    if(stat("/proc/net/dev", &procStat) < 0 || ! S_ISREG(procStat.st_mode))
+    if(stat("/proc/diskstats", &procStat) < 0 || ! S_ISREG(procStat.st_mode))
         return false;
 
     return true;
 }
 
+struct diskstats
+{
+    unsigned long long major;
+    unsigned long long minor;
+    string name;
+    unsigned long long read_completed;
+    unsigned long long read_merged;
+    unsigned long long read_sectors;
+    unsigned long long read_time;
+    unsigned long long write_completed;
+    unsigned long long write_merged;
+    unsigned long long write_sectors;
+    unsigned long long write_time;
+    unsigned long long io_in_progress;
+    unsigned long long io_time;
+    unsigned long long io_time_weighted;
+
+    bool parse(std::string input)
+    {
+        // read device data
+        istringstream sin(input);
+
+        sin
+            >> major
+            >> minor
+            >> name
+            >> read_completed
+            >> read_merged
+            >> read_sectors
+            >> read_time
+            >> write_completed
+            >> write_merged
+            >> write_sectors
+            >> write_time
+            >> io_in_progress
+            >> io_time
+            >> io_time_weighted
+        ;
+        return !sin.fail();
+    }
+};
+
 list<string> DevReaderLinuxProc::findAllDevices()
 {
     list<string> interfaceNames;
     
-    ifstream fin("/proc/net/dev");
+    ifstream fin("/proc/diskstats");
     if(!fin.is_open())
         return interfaceNames;
     
-    // skip the two header lines
-    string line;
-    getline(fin, line);
-    getline(fin, line);
-
-    if(!fin.good())
-        return interfaceNames;
-
     // read all remaining lines and extract the device name
     while(fin.good())
     {
+        string line;
         getline(fin, line);
-        if(line.empty())
+        diskstats d;
+        if( !d.parse( line ) )
             continue;
 
-        string::size_type posEnd = line.find(':');
-        if(posEnd == string::npos)
-            continue;
-
-        interfaceNames.push_back(trim(line.substr(0, posEnd)));
+        interfaceNames.push_back(d.name);
     }
     
     return interfaceNames;
@@ -76,77 +109,37 @@ void DevReaderLinuxProc::readFromDevice(DataFrame& dataFrame)
     if(m_deviceName.empty())
         return;
     
-    ifstream fin("/proc/net/dev");
+    ifstream fin("/proc/diskstats");
     if(!fin.is_open())
-        return;
-    
-    // skip the two header lines
-    string line;
-    getline(fin, line);
-    getline(fin, line);
-
-    if(!fin.good())
         return;
 
     // search for device
     while(fin.good())
     {
+        string line;
         getline(fin, line);
-        if(line.empty())
-            continue;
 
-        string::size_type posEnd = line.find(':');
-        if(posEnd == string::npos)
-            continue;
-
-        string interfaceName = trim(line.substr(0, posEnd));
-        if(interfaceName.empty())
-            continue;
+        diskstats d;
+        // read device data
+        if( !d.parse( line ) )
+            break;
 
         // check if it is the device we want
-        if(m_deviceName != interfaceName)
+        if(m_deviceName != d.name)
             continue;
 
-        // read device data
-        unsigned long long bytesIn = 0;
-        unsigned long long packetsIn = 0;
-        unsigned long long errorsIn = 0;
-        unsigned long long dropsIn = 0;
-        unsigned long long bytesOut = 0;
-        unsigned long long packetsOut = 0;
-        unsigned long long errorsOut = 0;
-        unsigned long long dropsOut = 0;
-        unsigned long long dummy = 0;
+        unsigned block_size = 512;
+        dataFrame.setTotalDataIn(d.read_sectors*block_size);
+        dataFrame.setTotalDataOut(d.write_sectors*block_size);
 
-        istringstream sin(trim(line.substr(posEnd + 1)));
+        dataFrame.setTotalPacketsIn(d.read_sectors);
+        dataFrame.setTotalPacketsOut(d.write_sectors);
 
-        sin >> bytesIn
-            >> packetsIn
-            >> errorsIn
-            >> dropsIn
-            >> dummy
-            >> dummy
-            >> dummy
-            >> dummy
-            >> bytesOut
-            >> packetsOut
-            >> errorsOut
-            >> dropsOut;
-
-        if(sin.fail())
-            break;
+        dataFrame.setTotalErrorsIn(0);
+        dataFrame.setTotalErrorsOut(0);
         
-        dataFrame.setTotalDataIn(bytesIn);
-        dataFrame.setTotalDataOut(bytesOut);
-
-        dataFrame.setTotalPacketsIn(packetsIn);
-        dataFrame.setTotalPacketsOut(packetsOut);
-
-        dataFrame.setTotalErrorsIn(errorsIn);
-        dataFrame.setTotalErrorsOut(errorsOut);
-        
-        dataFrame.setTotalDropsIn(dropsIn);
-        dataFrame.setTotalDropsOut(dropsOut);
+        dataFrame.setTotalDropsIn(d.read_merged);
+        dataFrame.setTotalDropsOut(d.write_merged);
         
         dataFrame.setValid(true);
         

@@ -51,40 +51,40 @@ DevReaderFactory::~DevReaderFactory()
 int DevReaderFactory::findAllDevices()
 {
 #if defined HAVE_BSD
-    list<string> interfaceNames = DevReaderBsd::findAllDevices();
+    list<string> diskNames = DevReaderBsd::findAllDevices();
 #elif defined HAVE_HPUX
-    list<string> interfaceNames = DevReaderHpux::findAllDevices();
+    list<string> diskNames = DevReaderHpux::findAllDevices();
 #elif defined HAVE_LINUX
-    list<string> interfaceNames = DevReaderLinux::findAllDevices();
+    list<string> diskNames = DevReaderLinux::findAllDevices();
 #elif defined HAVE_SOLARIS
-    list<string> interfaceNames = DevReaderSolaris::findAllDevices();
+    list<string> diskNames = DevReaderSolaris::findAllDevices();
 #endif
 
     map<string, DevReader*>::iterator devReaderIt = m_devReaders.begin();
     while(devReaderIt != m_devReaders.end())
     {
-        list<string>::iterator interfaceIt = interfaceNames.begin();
-        list<string>::iterator interfaceItEnd = interfaceNames.end();
+        list<string>::iterator diskIt = diskNames.begin();
+        list<string>::iterator diskItEnd = diskNames.end();
         
-        while(*interfaceIt != devReaderIt->first && interfaceIt != interfaceItEnd)
-            ++interfaceIt;
+        while(*diskIt != devReaderIt->first && diskIt != diskItEnd)
+            ++diskIt;
 
         // delete all devices which disappeared
-        if(interfaceIt == interfaceItEnd)
+        if(diskIt == diskItEnd)
         {
             delete devReaderIt->second;
             m_devReaders.erase(devReaderIt++);
         }
-        // delete all entries in the interface name list which we know of already
+        // delete all entries in the disk name list which we know of already
         else
         {
-            interfaceNames.erase(interfaceIt);
+            diskNames.erase(diskIt);
             devReaderIt++;
         }
     }
     
-    // the interface name list now contains only devices which just appeared in the system
-    for(list<string>::const_iterator it = interfaceNames.begin(); it != interfaceNames.end(); ++it)
+    // the disk name list now contains only devices which just appeared in the system
+    for(list<string>::const_iterator it = diskNames.begin(); it != diskNames.end(); ++it)
     {
         DevReader* newReader = createDevReader(*it);
         if(newReader)
@@ -113,12 +113,7 @@ DevReader* DevReaderFactory::createDevReader(const string& deviceName)
 #elif defined HAVE_HPUX
     reader = new DevReaderHpux(deviceName);
 #elif defined HAVE_LINUX
-    if(DevReaderLinuxSys::isAvailable())
-        reader = new DevReaderLinuxSys(deviceName);
-    else if(DevReaderLinuxProc::isAvailable())
-        reader = new DevReaderLinuxProc(deviceName);
-    else
-        reader = 0;
+    reader = new DevReaderLinuxProc(deviceName);
 #elif defined HAVE_SOLARIS
     reader = new DevReaderSolaris(deviceName);
 #endif
