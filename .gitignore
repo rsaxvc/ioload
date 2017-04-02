@@ -1,0 +1,10 @@
+*.o
+src/ioload
+src/.deps/
+Makefile
+src/Makefile
+docs/Makefile
+docs/ioload.1
+ioload.spec
+stamp-h1
+autom4te.cache

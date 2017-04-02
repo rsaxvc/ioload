@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 /*
- * nload
- * real time monitor for network traffic
+ * ioload
+ * real time monitor for disk traffic
  * Copyright (C) 2001 - 2012 Roland Riegel <feedback@roland-riegel.de>
  * 
  * This program is distributed in the hope that it will be useful,
@@ -337,7 +337,7 @@ int main(int argc, char *argv[])
         else if(strcmp(argv[i], "-s") == 0)
         {
         }
-        // assume unknown parameter to be the network device
+        // assume unknown parameter to be the disk device
         else
         {
             Setting& devices = SettingStore::get("Devices");
@@ -352,7 +352,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    // auto-detect network devices
+    // auto-detect disk devices
     DevReaderFactory::findAllDevices();
     const map<string, DevReader*>& deviceReaders = DevReaderFactory::getAllDevReaders();
 
@@ -570,7 +570,7 @@ void printHelp(bool error)
         << "                Default is h.\n"
         << "-U h|b|k|m|g    Same as -u, but for a total amount of data (without \"/s\").\n"
         << "   H|B|K|M|G    Default is H.\n"
-        << "devices         Network devices to use.\n"
+        << "devices         Disks to use.\n"
         << "                Default is to use all auto-detected devices.\n"
         << "--help\n"
         << "-h              Print this help.\n\n"

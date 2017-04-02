@@ -1,8 +1,9 @@
+## Richard Allen <rsaxvc@rsaxvc.net>
 ## Helder Correia <helder.correia@netcabo.pt>
 
-bin_PROGRAMS = nload
+bin_PROGRAMS = ioload
 
-nload_SOURCES = \
+ioload_SOURCES = \
 	dataframe.h										\
 	device.cpp device.h								\
 	devreader.cpp devreader.h						\
@@ -21,24 +22,24 @@ nload_SOURCES = \
 	window.cpp window.h
 
 if HAVE_BSD
-nload_SOURCES += \
+ioload_SOURCES += \
 	devreader-bsd.cpp devreader-bsd.h
 endif
 
 if HAVE_HPUX
-nload_SOURCES += \
+ioload_SOURCES += \
 	devreader-hpux.cpp devreader-hpux.h
 endif
 
 if HAVE_LINUX
-nload_SOURCES += \
+ioload_SOURCES += \
 	devreader-linux.cpp devreader-linux.h			\
 	devreader-linux-proc.cpp devreader-linux-proc.h \
 	devreader-linux-sys.cpp devreader-linux-sys.h
 endif
 
 if HAVE_SOLARIS
-nload_SOURCES += \
+ioload_SOURCES += \
 	devreader-solaris.cpp devreader-solaris.h
 endif
 

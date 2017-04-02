@@ -1,13 +1,14 @@
 .\"
-.\" Man page for nload
+.\" Man page for ioload
+.\" Copyright (C) 2016 - 2017 by Richard Allen <rsaxvc@rsaxvc.net>
 .\" Copyright (C) 2001 - 2012 by Roland Riegel <feedback@roland.riegel.de>
 .\"
-.TH nload 1 "February 06, 2012" nload "Network monitoring tools"
+.TH ioload 1 "April 02, 2017" ioload "Disk monitoring tools"
 .SH NAME
-nload \- displays the current network usage
+ioload \- displays the current disk bandwidth usage
 
 .SH SYNOPSIS
-.B nload
+.B ioload
 .RB [ \-a
 .IR period ]
 .RB [ \-i
@@ -23,19 +24,19 @@ nload \- displays the current network usage
 .IR h|H|b|B|k|K|m|M|g|G ]
 .RI [ devices ]
 
-.B nload \-\-help|\-h
+.B ioload \-\-help|\-h
 
 .SH DESCRIPTION
-.B nload
+.B ioload
 is a console application which monitors network traffic and bandwidth usage in real time.
 It visualizes the in- and outgoing traffic using two graphs and provides additional info
 like the total amount of transfered data and min/max network usage.
 
 .SH USAGE
 When running
-.B nload,
+.B ioload,
 you can switch between the devices (which you gave
-.B nload
+.B ioload
 either on the command line or which were auto-detected) by pressing the left and right arrow keys. If the
 .B \-m
 command line parameter is given, the arrow keys switch as many devices back and forth as
@@ -49,7 +50,7 @@ below.
 
 .SH OPTIONS
 A summary of the options supported by
-.B nload
+.B ioload
 is included below.
 
 .TP
@@ -76,7 +77,7 @@ PLEASE NOTE:
 Specifying refresh intervals shorter than about 100 milliseconds makes traffic
 calculation very unprecise. Also the display may flicker using such short
 refresh intervals.
-.B nload
+.B ioload
 tries to balance this out by doing extra time measurements, but this may
 not always succeed.
 .TP
@@ -98,7 +99,7 @@ Show a short summary of these command line options.
 
 .SH MAIN WINDOW
 After starting,
-.B nload
+.B ioload
 begins to monitor the network devices given on the
 command line, or, if none where specified, the default device. In this mode,
 the following key shortcuts are available.
@@ -133,11 +134,11 @@ Reload settings from the config files.
 .TP
 .B 'q', 'Ctrl+C'
 Quit
-.BR nload .
+.BR ioload .
 
 .SH OPTION WINDOW
 The parameters given to
-.B nload
+.B ioload
 on the command line can be adjusted during run time by pressing the 'F2' key. A
 small window appears on the top of the screen, listing the available settings.
 
@@ -164,38 +165,33 @@ Switch to the next / previous page of settings.
 .SH FILES
 
 .TP
-.I /etc/nload.conf
+.I /etc/ioload.conf
 System-wide configuration file.
 
 .TP
-.I $(HOME)/.nload
+.I $(HOME)/.ioload
 User-specific configuration file (overrides system-wide settings).
 
 .TP
 .I /sys/class/net/*/* /proc/net/dev
 are read by
-.B nload
+.B ioload
 when running on Linux to get the network traffic data.
 
 .SH VERSION
 This manual page describes version @VERSION@ of
-.BR nload .
+.BR ioload .
 
-For updates, look at the nload homepage:
+For updates, look at the ioload homepage:
 .br
-.B http://www.roland-riegel.de/nload/
+.B https://github.com/rsaxvc/ioload
 
 .SH HELP
-If you need help, either contact me directly (see below) or write to the
-nload-user mailing list at
+If you need help, create an issue on the github project.
 .br
-.B nload-user@lists.sourceforge.net
-.br
-after having subscribed at
-.br
-.BR https://lists.sourceforge.net/lists/listinfo/nload-user .
 
 .SH AUTHOR
+Copyright (C) 2016 - 2017 Richard Allen <rsaxvc@rsaxvc.net>
 Copyright (C) 2001 - 2012 Roland Riegel <feedback@roland-riegel.de>
 
 This program is free software; you can redistribute it and/or modify

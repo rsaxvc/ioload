@@ -196,10 +196,10 @@ void Device::printStatisticsIn(Window& window, int x, int y)
     // print average traffic
     printTrafficValue(window, x, y + 1, "Avg", m_deviceStatistics.getDataInAverage());
     
-    // print min traffic since nload start
+    // print min traffic since program start
     printTrafficValue(window, x, y + 2, "Min", m_deviceStatistics.getDataInMin());
     
-    // print max traffic since nload start
+    // print max traffic since program start
     printTrafficValue(window, x, y + 3, "Max", m_deviceStatistics.getDataInMax());
     
     // print total traffic since last system reboot
@@ -214,10 +214,10 @@ void Device::printStatisticsOut(Window& window, int x, int y)
     // print average traffic
     printTrafficValue(window, x, y + 1, "Avg", m_deviceStatistics.getDataOutAverage());
     
-    // print min traffic since nload start
+    // print min traffic since program start
     printTrafficValue(window, x, y + 2, "Min", m_deviceStatistics.getDataOutMin());
     
-    // print max traffic since nload start
+    // print max traffic since program start
     printTrafficValue(window, x, y + 3, "Max", m_deviceStatistics.getDataOutMax());
     
     // print total traffic since last system reboot

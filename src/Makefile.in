@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = nload$(EXEEXT)
+bin_PROGRAMS = ioload$(EXEEXT)
 @HAVE_BSD_TRUE@am__append_1 = \
 @HAVE_BSD_TRUE@	devreader-bsd.cpp devreader-bsd.h
 
@@ -61,7 +61,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am__nload_SOURCES_DIST = dataframe.h device.cpp device.h devreader.cpp \
+am__ioload_SOURCES_DIST = dataframe.h device.cpp device.h devreader.cpp \
 	devreader.h devreaderfactory.cpp devreaderfactory.h \
 	form_field.cpp form_field.h graph.cpp graph.h main.cpp main.h \
 	opt_window.cpp opt_window.h screen.cpp screen.h setting.cpp \
@@ -79,7 +79,7 @@ am__nload_SOURCES_DIST = dataframe.h device.cpp device.h devreader.cpp \
 @HAVE_LINUX_TRUE@	devreader-linux-proc.$(OBJEXT) \
 @HAVE_LINUX_TRUE@	devreader-linux-sys.$(OBJEXT)
 @HAVE_SOLARIS_TRUE@am__objects_4 = devreader-solaris.$(OBJEXT)
-am_nload_OBJECTS = device.$(OBJEXT) devreader.$(OBJEXT) \
+am_ioload_OBJECTS = device.$(OBJEXT) devreader.$(OBJEXT) \
 	devreaderfactory.$(OBJEXT) form_field.$(OBJEXT) \
 	graph.$(OBJEXT) main.$(OBJEXT) opt_window.$(OBJEXT) \
 	screen.$(OBJEXT) setting.$(OBJEXT) settingfilter.$(OBJEXT) \
@@ -87,8 +87,8 @@ am_nload_OBJECTS = device.$(OBJEXT) devreader.$(OBJEXT) \
 	stringutils.$(OBJEXT) traffic_window.$(OBJEXT) \
 	window.$(OBJEXT) $(am__objects_1) $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4)
-nload_OBJECTS = $(am_nload_OBJECTS)
-nload_LDADD = $(LDADD)
+ioload_OBJECTS = $(am_ioload_OBJECTS)
+ioload_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -102,8 +102,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(nload_SOURCES)
-DIST_SOURCES = $(am__nload_SOURCES_DIST)
+SOURCES = $(ioload_SOURCES)
+DIST_SOURCES = $(am__ioload_SOURCES_DIST)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -206,7 +206,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-nload_SOURCES = dataframe.h device.cpp device.h devreader.cpp \
+ioload_SOURCES = dataframe.h device.cpp device.h devreader.cpp \
 	devreader.h devreaderfactory.cpp devreaderfactory.h \
 	form_field.cpp form_field.h graph.cpp graph.h main.cpp main.h \
 	opt_window.cpp opt_window.h screen.cpp screen.h setting.cpp \
@@ -286,9 +286,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-nload$(EXEEXT): $(nload_OBJECTS) $(nload_DEPENDENCIES) 
-	@rm -f nload$(EXEEXT)
-	$(CXXLINK) $(nload_OBJECTS) $(nload_LDADD) $(LIBS)
+ioload$(EXEEXT): $(ioload_OBJECTS) $(ioload_DEPENDENCIES) 
+	@rm -f ioload$(EXEEXT)
+	$(CXXLINK) $(ioload_OBJECTS) $(ioload_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

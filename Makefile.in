@@ -36,7 +36,7 @@ host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/nload.spec.in $(top_srcdir)/configure AUTHORS \
+	$(srcdir)/ioload.spec.in $(top_srcdir)/configure AUTHORS \
 	COPYING ChangeLog INSTALL NEWS config.guess config.sub depcomp \
 	install-sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,7 +47,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = nload.spec
+CONFIG_CLEAN_FILES = ioload.spec
 CONFIG_CLEAN_VPATH_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -258,7 +258,7 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-nload.spec: $(top_builddir)/config.status $(srcdir)/nload.spec.in
+ioload.spec: $(top_builddir)/config.status $(srcdir)/ioload.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 # This directory's subdirectories are mostly independent; you can cd

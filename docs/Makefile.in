@@ -35,14 +35,14 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = docs
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/nload.1.in
+	$(srcdir)/ioload.1.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = nload.1
+CONFIG_CLEAN_FILES = ioload.1
 CONFIG_CLEAN_VPATH_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -146,7 +146,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-man1_MAN = nload.1
+man1_MAN = ioload.1
 all: all-am
 
 .SUFFIXES:
@@ -180,7 +180,7 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-nload.1: $(top_builddir)/config.status $(srcdir)/nload.1.in
+ioload.1: $(top_builddir)/config.status $(srcdir)/ioload.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 tags: TAGS
 TAGS:

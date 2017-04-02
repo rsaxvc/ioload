@@ -1,10 +1,10 @@
-Summary        : A console application which monitors network traffic and bandwidth usage in real time
+Summary        : A console application which monitors disk traffic and bandwidth usage in real time
 Name           : @PACKAGE@
 Version        : @VERSION@
 Release        : 1
 Copyright      : GPL
-Url            : http://www.roland-riegel.de/nload/index_en.html
-Packager       : Helder Correia <helder.correia@netcabo.pt>
+Url            : https://github.com/rsaxvc/ioload
+Packager       : Richard Allen <rsaxvc@rsaxvc.net>
 Group          : Applications/System
 Source         : %{name}-%{version}.tar.gz
 BuildRoot      : %{_tmppath}/%{name}-%{version}-root
@@ -13,10 +13,10 @@ BuildRequires  : ncurses-devel >= 5.0
 
 
 %description
-%{name} is a console application which monitors network traffic and bandwidth
+%{name} is a console application which monitors disk traffic and bandwidth
 usage in real time. It visualizes the in and outgoing traffic using two graphs
 and provides additional info like total amount of transfered data and min/max
-network usage.
+disk usage. Based heavily on nload.
 
 
 %prep

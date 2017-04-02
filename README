@@ -1,17 +1,18 @@
-nload 0.7.3 (2011-06-12)
-real time monitor for network traffic
+ioload 0.7.3
+real time monitor for disk traffic
+Copyright (C) 2016 - 2017 by Richard Allen <rsaxvc@rsaxvc.net>
 Copyright (C) 2001 - 2011 by Roland Riegel <feedback@roland-riegel.de>
 
 1. Introduction
    ------------
 
-This is version 0.7.3 of nload, a console application which monitors network
+This is version 0.7.3 of ioload, a console application which monitors disk
 traffic and bandwidth usage in real time.
 It visualizes the in- and outgoing traffic using two graphs and provides
-additional info like total amount of transfered data and min/max network
+additional info like total amount of transfered data and min/max disk
 usage.
 
-2. Installing / Compiling nload
+2. Installing / Compiling ioload
    ----------------------------
 
 Compiling is done by running
@@ -20,29 +21,29 @@ Compiling is done by running
 make
 
 in the directory where this README is.
-To install nload, you have to be root:
+To install ioload, you have to be root:
 
 su
 make install
 
 You can find more detailed information in the file INSTALL in this directory.
 
-3. Using nload
+3. Using ioload
    -----------
 
-To learn about the command line switches and the usage of nload in general,
+To learn about the command line switches and the usage of ioload in general,
 simply run:
 
-nload --help
+ioload --help
 
-Alternatively, there is a nload man page available by typing:
+Alternatively, there is a ioload man page available by typing:
 
-man nload
+man ioload
 
-4. Uninstalling nload
+4. Uninstalling ioload
    ------------------
 
-If you want to uninstall nload (I hope you never want to ;-), run:
+If you want to uninstall ioload (I hope you never want to ;-), run:
 
 make uninstall
 
@@ -51,7 +52,7 @@ in the build directory.
 5. Getting help
    ------------
 
-If you have problems with compiling, installing or using nload, you may
+If you have problems with compiling, installing or using ioload, you may
 mail me to feedback@roland-riegel.de.
 
 6. Copyright / License

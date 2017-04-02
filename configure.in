@@ -1,7 +1,7 @@
-dnl Helder Correia <helder.correia@netcabo.pt>
+dnl Richard Allen <rsaxvc@rsaxvc.net>
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT([nload], [0.7.4], [feedback@roland-riegel.de])
+AC_INIT([ioload], [0.7.4], [rsaxvc@rsaxvc.net])
 
 AC_CANONICAL_HOST
 
@@ -11,9 +11,9 @@ AC_CONFIG_HEADER([config.h])
 
 AC_CONFIG_FILES([
 Makefile
-nload.spec
+ioload.spec
 docs/Makefile
-docs/nload.1
+docs/ioload.1
 src/Makefile
 ])
 
@@ -65,7 +65,7 @@ case $host_os in
     	AC_SUBST(INCLUDES)
         ;;
     *)
-        AC_MSG_ERROR([nload does not support this operating system!])
+        AC_MSG_ERROR([ioload does not support this operating system!])
         ;;
 esac
 
