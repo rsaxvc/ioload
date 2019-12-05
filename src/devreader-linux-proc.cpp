@@ -128,7 +128,7 @@ void DevReaderLinuxProc::readFromDevice(DataFrame& dataFrame)
         if(m_deviceName != d.name)
             continue;
 
-        unsigned block_size = 512;
+        static const unsigned block_size = 512;
         dataFrame.setTotalDataIn(d.read_sectors*block_size);
         dataFrame.setTotalDataOut(d.write_sectors*block_size);
 
