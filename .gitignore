@@ -8,3 +8,7 @@ docs/ioload.1
 ioload.spec
 stamp-h1
 autom4te.cache
+config.h
+config.log
+config.status
+
