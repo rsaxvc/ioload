@@ -33,7 +33,6 @@ class DevReader
 
     protected:
         virtual void readFromDevice(DataFrame& dataFrame) = 0;
-        std::string getDeviceIp4Address();
         
         std::string m_deviceName;
 };
