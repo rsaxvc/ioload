@@ -18,7 +18,7 @@ using namespace std;
 
 bool DevReaderLinux::isAvailable()
 {
-    return DevReaderLinuxSys::isAvailable() || DevReaderLinuxProc::isAvailable();
+    return DevReaderLinuxProc::isAvailable();
 }
 
 list<string> DevReaderLinux::findAllDevices()
