@@ -120,8 +120,8 @@ int main(int argc, char *argv[])
     }
 
     string homeDir = homeDirArray;
-    SettingStore::readFromFile(SYSCONFDIR "/nload.conf");
-    SettingStore::readFromFile(homeDir + "/.nload");
+    SettingStore::readFromFile(SYSCONFDIR "/ioload.conf");
+    SettingStore::readFromFile(homeDir + "/.ioload");
 
     // parse the command line
     bool deleteDevicesRequested = true;
@@ -410,11 +410,11 @@ int main(int argc, char *argv[])
                             restOfRefreshInterval = 0; // update the screen
                             break;
                         case KEY_F(5):
-                            SettingStore::writeToFile(homeDir + "/.nload");
+                            SettingStore::writeToFile(homeDir + "/.ioload");
                             break;
                         case KEY_F(6):
-                            SettingStore::readFromFile("/etc/nload.conf");
-                            SettingStore::readFromFile(homeDir + "/.nload");
+                            SettingStore::readFromFile("/etc/ioload.conf");
+                            SettingStore::readFromFile(homeDir + "/.ioload");
                             break;
                         case 'q':
                         case 'Q':
@@ -443,6 +443,7 @@ int main(int argc, char *argv[])
                     devicesToShow.push_back(itDetectedDevice->second);
             }
         }
+
 
         if(devicesToShow.empty())
         {
