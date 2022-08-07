@@ -9,7 +9,6 @@
 
 #include "devreader-linux.h"
 #include "devreader-linux-proc.h"
-#include "devreader-linux-sys.h"
 
 #include <string>
 #include <list>

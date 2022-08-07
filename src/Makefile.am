@@ -21,25 +21,9 @@ ioload_SOURCES = \
 	traffic_window.cpp traffic_window.h				\
 	window.cpp window.h
 
-if HAVE_BSD
-ioload_SOURCES += \
-	devreader-bsd.cpp devreader-bsd.h
-endif
-
-if HAVE_HPUX
-ioload_SOURCES += \
-	devreader-hpux.cpp devreader-hpux.h
-endif
-
 if HAVE_LINUX
 ioload_SOURCES += \
 	devreader-linux.cpp devreader-linux.h			\
-	devreader-linux-proc.cpp devreader-linux-proc.h \
-	devreader-linux-sys.cpp devreader-linux-sys.h
-endif
-
-if HAVE_SOLARIS
-ioload_SOURCES += \
-	devreader-solaris.cpp devreader-solaris.h
+	devreader-linux-proc.cpp devreader-linux-proc.h
 endif
 

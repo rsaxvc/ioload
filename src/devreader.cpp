@@ -30,10 +30,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#ifdef HAVE_SOLARIS
-    #include <sys/sockio.h>
-#endif
-
 using namespace std;
 
 DevReader::DevReader(const string& deviceName)

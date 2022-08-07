@@ -20,12 +20,8 @@
 #include "config.h"
 
 #include "devreader.h"
-#include "devreader-bsd.h"
-#include "devreader-hpux.h"
 #include "devreader-linux-proc.h"
-#include "devreader-linux-sys.h"
 #include "devreader-linux.h"
-#include "devreader-solaris.h"
 
 #include <string>
 #include <list>
@@ -50,14 +46,8 @@ DevReaderFactory::~DevReaderFactory()
 
 int DevReaderFactory::findAllDevices()
 {
-#if defined HAVE_BSD
-    list<string> diskNames = DevReaderBsd::findAllDevices();
-#elif defined HAVE_HPUX
-    list<string> diskNames = DevReaderHpux::findAllDevices();
-#elif defined HAVE_LINUX
+#if defined HAVE_LINUX
     list<string> diskNames = DevReaderLinux::findAllDevices();
-#elif defined HAVE_SOLARIS
-    list<string> diskNames = DevReaderSolaris::findAllDevices();
 #endif
 
     map<string, DevReader*>::iterator devReaderIt = m_devReaders.begin();
@@ -108,14 +98,8 @@ DevReader* DevReaderFactory::createDevReader(const string& deviceName)
 {
     DevReader* reader = 0;
     
-#if defined HAVE_BSD
-    reader = new DevReaderBsd(deviceName);
-#elif defined HAVE_HPUX
-    reader = new DevReaderHpux(deviceName);
-#elif defined HAVE_LINUX
+#if defined HAVE_LINUX
     reader = new DevReaderLinuxProc(deviceName);
-#elif defined HAVE_SOLARIS
-    reader = new DevReaderSolaris(deviceName);
 #endif
 
     return reader;
