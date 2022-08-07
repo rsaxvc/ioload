@@ -77,7 +77,7 @@ struct diskstats
             >> io_time
             >> io_time_weighted
         ;
-        return !sin.fail();
+        return !sin.fail() && name.find("loop");
     }
 };
 
@@ -122,7 +122,7 @@ void DevReaderLinuxProc::readFromDevice(DataFrame& dataFrame)
         diskstats d;
         // read device data
         if( !d.parse( line ) )
-            break;
+            continue;
 
         // check if it is the device we want
         if(m_deviceName != d.name)
