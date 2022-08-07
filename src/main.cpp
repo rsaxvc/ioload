@@ -60,7 +60,7 @@
 #define STANDARD_AVERAGE_WINDOW 300
 #define STANDARD_DATA_FORMAT Statistics::humanReadableByte
 #define STANDARD_HIDE_GRAPHS false
-#define STANDARD_MAX_DEFLECTION 10240
+#define STANDARD_MAX_DEFLECTION -1 //negative means autoscale
 #define STANDARD_REFRESH_INTERVAL 500
 #define STANDARD_TRAFFIC_FORMAT Statistics::humanReadableBit
 
@@ -558,11 +558,11 @@ void printHelp(bool error)
         << "-i max_scaling  Specifies the 100% mark in kBit/s of the graph indicating the\n"
         << "                incoming bandwidth usage. Ignored if max_scaling is 0 or the\n"
         << "                switch -m is given.\n"
-        << "                Default is " << STANDARD_MAX_DEFLECTION << ".\n"
+        << "                Default is automatic.\n"
         << "-m              Show multiple devices at a time; no traffic graphs.\n"
         << "-o max_scaling  Same as -i but for the graph indicating the outgoing bandwidth\n"
         << "                usage.\n"
-        << "                Default is " << STANDARD_MAX_DEFLECTION << ".\n"
+        << "                Default is automatic.\n"
         << "-t interval     Determines the refresh interval of the display in milliseconds.\n"
         << "                Default is " << STANDARD_REFRESH_INTERVAL << ".\n"
         << "-u h|b|k|m|g    Sets the type of unit used for the display of traffic numbers.\n"
