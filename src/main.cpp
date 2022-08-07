@@ -329,14 +329,6 @@ int main(int argc, char *argv[])
         {
             SettingStore::get("MultipleDevices") = true;
         }
-        // obsolete -b option
-        else if(strcmp(argv[i], "-b") == 0)
-        {
-        }
-        // obsolete -s option
-        else if(strcmp(argv[i], "-s") == 0)
-        {
-        }
         // assume unknown parameter to be the disk device
         else
         {
