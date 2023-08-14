@@ -53,16 +53,16 @@ case $host_os in
         AC_CHECK_LIB(socket, main)
         AC_CHECK_LIB(nsl, main)
         
-        INCLUDES="${INCLUDES} -I/usr/local/include/ncurses"
-        AC_SUBST(INCLUDES)
+        AM_CPPFLAGS="${AM_CPPFLAGS} -I/usr/local/include/ncurses"
+        AC_SUBST(AM_CPPFLAGS)
         ;;
     *hpux*)
         AC_DEFINE(HAVE_HPUX, 1, [Define to 1 if your build target is HP-UX.])
         AM_CONDITIONAL(HAVE_HPUX, true)
         
-    	INCLUDES="${INCLUDES} -I/usr/local/include/ncurses"
+    	AM_CPPFLAGS="${AM_CPPFLAGS} -I/usr/local/include/ncurses"
     	LIBS="-L/usr/local/lib ${LIBS}"
-    	AC_SUBST(INCLUDES)
+    	AC_SUBST(AM_CPPFLAGS)
         ;;
     *)
         AC_MSG_ERROR([ioload does not support this operating system!])
